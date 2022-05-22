@@ -1,0 +1,20 @@
+from sklearn.model_selection import train_test_split
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import RepeatedKFold
+from xgboost import XGBRegressor
+from sklearn.model_selection import cross_val_score
+from numpy import absolute
+X = pd.read_csv("features.csv")
+y = pd.read_csv("labels.csv")
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+
+model = XGBRegressor()
+# define model evaluation method
+cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
+# evaluate model
+scores = cross_val_score(model, X, y, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
+# force scores to be positive
+scores = absolute(scores)
+print('Mean MAE: %.3f (%.3f)' % (scores.mean(), scores.std()) )

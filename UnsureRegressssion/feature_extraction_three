@@ -1,0 +1,22 @@
+import nltk
+from nltk.classify import NaiveBayesClassifier
+from nltk.corpus import subjectivity
+from nltk.sentiment import SentimentAnalyzer
+from nltk.sentiment.util import *
+import pandas as pd
+import numpy as np
+
+
+df = pd.read_csv('filteredData.csv',header=None)
+input = df.iloc[:, 3]
+labels = df.iloc[:, 0]
+
+def find_features(document):
+    words = set(document)
+    features = {}
+    for w in word_features:
+        features[w] = (w in words)
+
+    return features
+
+#TfidfVectorizer

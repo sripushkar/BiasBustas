@@ -1,0 +1,38 @@
+import tensorflow_hub as hub
+import tensorflow as tf
+import pandas as pd
+import numpy as np
+import seaborn as sns
+from absl import logging
+
+print("hi")
+
+
+embed = hub.load("https://tfhub.dev/google/universal-sentence-encoder/4")
+
+print ("module %s loaded") 
+
+
+
+logging.set_verbosity(logging.ERROR)
+print("starting... ")
+
+df = pd.read_csv('filteredData.csv',header=None)
+input = df.iloc[:, 3]
+labels = df.iloc[:, 0]
+
+message_embeddings = embed(input)
+
+print("embedded!")
+
+for i, message_embedding in enumerate(np.array(message_embeddings).tolist()):
+  print("Message: {}".format(input[i]))
+  print("Embedding size: {}".format(len(message_embedding)))
+  message_embedding_snippet = ", ".join(
+      (str(x) for x in message_embedding[:3]))
+  print("Embedding: [{}, ...]\n".format(message_embedding_snippet))
+
+features = message_embeddings
+
+print(features.shape)
+labels.to_csv("labels.csv")
