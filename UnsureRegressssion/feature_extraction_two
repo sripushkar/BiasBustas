@@ -17,7 +17,7 @@ print ("module %s loaded")
 logging.set_verbosity(logging.ERROR)
 print("starting... ")
 
-df = pd.read_csv('filteredData.csv',header=None)
+df = pd.read_csv("C:\\Users\\ashim\\OneDrive\\Documents\\GitHub\\BiasBustas\\UnsureRegressssion\\filteredData.csv",header=None)
 input = df.iloc[:, 3]
 labels = df.iloc[:, 0]
 
