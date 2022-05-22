@@ -10,7 +10,7 @@ print("hi")
 
 embed = hub.load("https://tfhub.dev/google/universal-sentence-encoder/4")
 
-print ("module %s loaded") 
+print ("module %s loaded")
 
 
 
